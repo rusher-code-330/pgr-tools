@@ -1,24 +1,33 @@
-# 🧰 PGR Tools
+<p align="center">
+  <img src="https://api.websim.com/blobs/019e188f-2e56-75ee-ae6d-286fa8372ba0.png" width="800">
+</p>
+
+
+# PGR Tools
 
 PGR Tools is a simple Python CLI and interactive toolbox that includes calculators, text tools, password generator, timers, and YouTube download features (MP3/MP4).
 
 ---
 
-# 🚀 Features
+# Features
 
-- ➕ Calculator (addition, subtraction, multiplication, division)
-- 🎲 Random password generator
-- 🔤 ASCII text generator (pyfiglet)
-- ⏱️ Countdown timer
-- 🎵 YouTube MP3 downloader (yt-dlp)
-- 🎥 YouTube MP4 downloader (yt-dlp)
-- 🧠 Interactive CLI system (pgr commands)
+- Calculator (addition, subtraction, multiplication, division)
+- Random password generator
+- ASCII text generator (pyfiglet)
+- Countdown timer
+- YouTube MP3 downloader (yt-dlp)
+- YouTube MP4 downloader (yt-dlp)
+- Interactive CLI system (pgr commands)
 
 ---
 
-# 📦 Installation (Termux / Linux)
+# installation (Termux / Linux)
 
 ```bash
-pkg update && pkg upgrade
-pkg install python git ffmpeg -y
-pip install yt-dlp colorama pyfiglet
+git clone https://github.com/rusher-code-330/pgr-tools.git
+cd pgr-tools
+bash install.sh
+```
+
+## credits
+- RUSHER
