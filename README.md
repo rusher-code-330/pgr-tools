@@ -3,7 +3,7 @@
 </p>
 
 
-# PGR Tools
+# PGR Tools V.beta
 
 PGR Tools is a simple Python CLI and interactive toolbox that includes calculators, text tools, password generator, timers, and YouTube download features (MP3/MP4).
 
