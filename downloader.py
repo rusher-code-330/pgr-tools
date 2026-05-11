@@ -7,7 +7,7 @@ def mp4_ytb():
     url = input(Fore.RED + "| YouTube URL (converter mp4): ")
 
     options = {
-        "format": "best[ext=mp4][vcodec=h264]/best",
+        "format": "bestvideo[vcodec=vp9]+bestaudio/bestvideo+bestaudio/best",
         "merge_output_format": "mp4",
         "ffmpeg_location": "/data/data/com.termux/files/usr/bin",
         "outtmpl": "/storage/emulated/0/Download/%(title)s.%(ext)s"
