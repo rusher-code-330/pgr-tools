@@ -29,5 +29,21 @@ cd pgr-tools
 bash install.sh
 ```
 
+# installation windows
+
+```bash
+git clone https://github.com/rusher-code-330/pgr-tools.git
+cd pgr-tools
+install.bat
+```
+
+# installation linux
+
+```bash
+git clone https://github.com/rusher-code-330/pgr-tools.git
+cd pgr-tools
+bash install.sh
+```
+
 ## credits
 - RUSHER
