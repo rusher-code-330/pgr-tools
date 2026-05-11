@@ -7,11 +7,10 @@ def mp4_ytb():
     url = input(Fore.RED + "| YouTube URL (converter mp4): ")
 
     options = {
-        "format": "best[height<=1080][ext=mp4]/best[height<=1080]/best",
+        "format": "best[ext=mp4][vcodec=h264]/best",
         "merge_output_format": "mp4",
         "ffmpeg_location": "/data/data/com.termux/files/usr/bin",
-        "outtmpl": "/storage/emulated/0/Download/%(title)s.%(ext)s",
-        "quiet": False,
+        "outtmpl": "/storage/emulated/0/Download/%(title)s.%(ext)s"
     }
 
     with yt_dlp.YoutubeDL(options) as ydl:
@@ -21,7 +20,7 @@ def mp4_ytb():
 
 
 def mp3_ytb():
-    url = input(Fore.RED + "| Youtube URL (converter mp3): ")
+    url = input(Fore.RED + "| Youtube URL(converter mp3): ")
 
     options = {
         "format": "bestaudio/best",
@@ -29,10 +28,10 @@ def mp3_ytb():
         "postprocessors": [{
             "key": "FFmpegExtractAudio",
             "preferredcodec": "mp3",
-            "preferredquality": "320",  # Max qualité MP3
+            "preferredquality": "192",
         }],
         "ffmpeg_location": "/data/data/com.termux/files/usr/bin",
-        "quiet": False,
+        "quiet": False
     }
 
     with yt_dlp.YoutubeDL(options) as ydl:
