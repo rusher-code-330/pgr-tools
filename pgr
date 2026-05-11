@@ -1,0 +1,2 @@
+#!/data/data/com.termux/files/usr/bin/sh
+python /data/data/com.termux/files/home/pgr-tools/pgr.py
