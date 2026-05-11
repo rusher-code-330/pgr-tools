@@ -42,7 +42,7 @@ install.bat
 ```bash
 git clone https://github.com/rusher-code-330/pgr-tools.git
 cd pgr-tools
-bash install.sh
+bash install2.sh
 ```
 
 ## credits
