@@ -25,6 +25,7 @@ PGR Tools is a simple Python CLI and interactive toolbox that includes calculato
 git clone https://github.com/rusher-code-330/pgr-tools.git
 cd pgr-tools
 bash install.sh
+cd ~
 ```
 
 # installation windows
@@ -33,6 +34,7 @@ bash install.sh
 git clone https://github.com/rusher-code-330/pgr-tools.git
 cd pgr-tools
 install.bat
+cd ~
 ```
 
 # installation linux
@@ -41,6 +43,7 @@ install.bat
 git clone https://github.com/rusher-code-330/pgr-tools.git
 cd pgr-tools
 bash install2.sh
+cd ~
 ```
 
 ## credits
