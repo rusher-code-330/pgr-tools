@@ -18,4 +18,4 @@ chmod 755 pgr
 sudo mv pgr /usr/local/bin/
 chmod 755 /usr/local/bin/pgr
 
-echo "Installed! Type: pgr2"
+echo "Installed! Type: pgr"
