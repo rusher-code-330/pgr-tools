@@ -19,6 +19,30 @@ if not os.path.exists(INSTALLED_FILE):
     with open(INSTALLED_FILE, "w") as f:
         json.dump([], f)
 
+def install_requirements(code):
+    import re
+
+    try:
+        match = re.search(r"REQUIRES\s*=\s*\[(.*?)\]", code)
+
+        if not match:
+            return
+
+        raw = match.group(1)
+
+        packages = [
+            p.strip().replace('"', '').replace("'", "")
+            for p in raw.split(",")
+        ]
+
+        for pkg in packages:
+            if pkg:
+                print(f"| installing dependency: {pkg}")
+                os.system(f"{sys.executable} -m pip install {pkg}")
+
+    except Exception as e:
+        print("| dependency error:", e)
+
 
 def load_plugins():
     plugins = {}
