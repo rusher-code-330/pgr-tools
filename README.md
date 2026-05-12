@@ -2,6 +2,10 @@
   <img src="https://api.websim.com/blobs/019e188f-2e56-75ee-ae6d-286fa8372ba0.png" width="800">
 </p>
 
+![Version](https://img.shields.io/badge/version-1.0-red)
+![License](https://img.shields.io/badge/license-PGRTools-blue)
+![python](https://img.shields.io/badge/python-3-blue)
+
 
 # PGR Tools V.beta
 
