@@ -10,7 +10,7 @@
 [![yt-dlp](https://img.shields.io/badge/yt--dlp-latest-ff0000?style=for-the-badge&logo=youtube&logoColor=white)](https://github.com/yt-dlp/yt-dlp)
 
 
-# PGR Tools V.beta
+# PGR Tools v1.0.0
 
 PGR Tools is a simple toolbox that includes calculators, text tools, password generator, timers, and YouTube download features (MP3/MP4).
 
