@@ -1,148 +1,184 @@
-import time
-import random
-import colorama
+import os
+import importlib
+import requests
+import json
 from colorama import init, Fore
 from colorama import init, Style
 import pyfiglet
-import downloader
-from downloader import mp4_ytb
-from downloader import mp3_ytb
-import os
 import sys
 
-text = pyfiglet.figlet_format (" WELCOME TO PGR TOOLS  V1.0.1",  font="standard")
+PLUGIN_DIR = "plugins"
+BASE_URL = "https://raw.github.com/rusher-code-330/PGR-Tools-Plugin/main/"
+INSTALLED_FILE = "installed.json"
+
+
+if not os.path.exists(PLUGIN_DIR):
+    os.makedirs(PLUGIN_DIR)
+
+if not os.path.exists(INSTALLED_FILE):
+    with open(INSTALLED_FILE, "w") as f:
+        json.dump([], f)
+
+
+
+def load_plugins():
+
+    plugins = {}
+
+    for file in os.listdir(PLUGIN_DIR):
+
+        if file.endswith(".py"):
+
+            name = file[:-3]
+
+            try:
+
+                module_name = f"plugins.{name}"
+
+                # reload si déjà chargé
+                if module_name in sys.modules:
+                    module = importlib.reload(sys.modules[module_name])
+
+                else:
+                    module = importlib.import_module(module_name)
+
+                plugins[name] = module
+
+            except Exception as e:
+                print(f"| failed loading plugin: {name}")
+                print(e)
+
+    return plugins
+
+
+
+def save_installed(data):
+    with open(INSTALLED_FILE, "w") as f:
+        json.dump(data, f)
+
+
+def get_installed():
+    with open(INSTALLED_FILE, "r") as f:
+        return json.load(f)
+
+
+
+def install_plugin(name):
+    url = f"{BASE_URL}/{name}.py"
+    r = requests.get(url)
+
+    if r.status_code == 200:
+        with open(f"{PLUGIN_DIR}/{name}.py", "w") as f:
+            f.write(r.text)
+
+        installed = get_installed()
+
+        if name not in installed:
+            installed.append(name)
+            save_installed(installed)
+
+        print(f"| {name} installed")
+    else:
+        print("| plugin not found")
+
+
+def uninstall_plugin(name):
+    path = f"{PLUGIN_DIR}/{name}.py"
+
+    if os.path.exists(path):
+        os.remove(path)
+        print(f"| {name} removed")
+    else:
+        print("| plugin not installed")
+
+
+
+def update_plugin(name):
+    uninstall_plugin(name)
+    install_plugin(name)
+
+
+
+def list_plugins():
+    installed = get_installed()
+
+    print("\n___ INSTALLED PLUGINS ___")
+    for p in installed:
+        print("-", p)
+    print("_________________________")
+
+
+
+plugins = load_plugins()
+
+
+
+
+text = pyfiglet.figlet_format (" WELCOME TO PGR TOOLS  V2.0.1 BETA",  font="standard")
 print(Fore.CYAN + text + Style.RESET_ALL)
 
-print ("write " + Fore.CYAN + "help"+	Style.RESET_ALL +" to view all pgr")
+print ("write " + Fore.CYAN + "pgr help"+	Style.RESET_ALL +" to view all pgr")
 print(Fore.RED + "created by rusher" + Style.RESET_ALL)
 
-for i in range(100):
-	pgr = input("|>")
-	
-	if pgr == "addition":
-		number1 = int(input("| first number >"))
-		number2 = int(input("| second number >"))
-		result = number1 + number2
-		print(Fore.CYAN + str(result) + Style.RESET_ALL )
-		
-	if pgr == "subtraction":
-		number1 = int(input("| first number >"))
-		number2 = int(input("| second number >"))
-		result = number1 - number2
-		print(Fore.CYAN + str(result) + Style.RESET_ALL )
-		
-	if pgr == "multiplication":
-		number1 = int(input("| first number >"))
-		number2 = int(input("| second number >"))
-		result = number1 * number2
-		print(Fore.CYAN + str(result) + Style.RESET_ALL )
-		
-	if pgr == "division":
-		number1 = int(input("| first number >"))
-		number2 = int(input("| second number >"))
-		result = number1 / number2
-		print(Fore.CYAN + str(result) + Style.RESET_ALL )
-		
-	if pgr == "random password":
-		letters = "abcdefghijklmnopqrstuvwxyz"
-		numbers = "123456789"
-		maj_letters = "ABCDEFGHIKLMNOPQRSTUVWXYZ"
-		
-		password = ""
-		
-		for i in range(10):
-			password += random.choice(letters)
-			password += random.choice(numbers)
-			password += random.choice(maj_letters)
-			
-		print("| password generated >")
-		print(Fore.CYAN + str(password) + Style.RESET_ALL)
-		
-		
-	if pgr == "ascii text":
-		textascii = input("| ecrit quelque chose... >")
-		
-		result = pyfiglet.figlet_format (textascii, font = "standard")
-		print(result)
-		
-	if pgr == "hello":
-		print(Fore.CYAN+ "| hi :)" + Style.RESET_ALL)
-		
-	if pgr == "hi":
-		print(Fore.CYAN +"| hello :)" + Style.RESET_ALL)
-		
-	if pgr == "timer":
-		seconds = int(input("| time ?>"))
-		for i in range(seconds, 0, -1):
-			print(Fore.CYAN +"| " + str( i ) + Style.RESET_ALL)
-			time.sleep(1)
-		print("| out!!!")
-		
-	if pgr == "ytb4":
-		mp4_ytb()
-		
-	if pgr == "ytb3":
-		mp3_ytb()
-		
-	if pgr == "credits":
-		print(Fore.CYAN +"| DEV : Rusher")
-		print("| thank for use pgr tools" + Style.RESET_ALL)
-		
-	if pgr == "exit":
-		print(Fore.CYAN + "| bye user :)" + Style.RESET_ALL)
-		exit()
-		
-	if pgr == "pgr uninstall":
-		print(Fore.RED + "| uninstalling PGR Tools..." + Style.RESET_ALL)
-		current_dir = os.path.dirname(os.path.abspath(__file__))
-		os.system(f"rm -rf '{current_dir}'")
-		print(Fore.CYAN + "| PGR Tools removed" + Style.RESET_ALL)
-		exit()
-		
-	if pgr == "v":
-		print(Fore.CYAN + "| PGRTools	v1.0.1" + Style.RESET_ALL)
-		
-	if pgr == "community":
-		print(Fore.CYAN + "| comming soon" + Style.RESET_ALL)
-		
-	if pgr == "repo":
-		print("| open code")
-		print(Fore.CYAN + "https://github.com/rusher-code-330/pgr-tools" + Style.RESET_ALL)
-		
-	if pgr == "pgr update":
-		print("| updating PGR tools...")
-		os.system("cd ~/pgr-tools && git pull")
-		print(Fore.CYAN + "| PGR Tools restart. . ." + Style.RESET_ALL)
-		os.execl(sys.executable, sys.executable, *sys.argv)
-		
-	if pgr == "pgr restart":
-		print(Fore.CYAN + "| PGR Tools restart. . ." + Style.RESET_ALL)
-		os.execl(sys.executable, sys.executable, *sys.argv)
-		
-	if pgr == "help":
-		print("| PROGRAMME :\n")
+while True:
+        
+    pgr = input("|> ")
 
-		print(Fore.CYAN + "== MATH ==")
-		print("| addition")
-		print("| subtraction")
-		print("| multiplication")
-		print("| division\n")
+    if pgr.startswith("pgr install "):
+        name = pgr.split(" ")[2]
+        install_plugin(name)
+        plugins = load_plugins()
 
-		print(Fore.CYAN + "== TOOLS ==")
-		print("| timer")
-		print("| ascii text")
-		print("| random password\n")
+    elif pgr.startswith("pgr uninstall "):
+        name = pgr.split(" ")[2]
+        uninstall_plugin(name)
+        plugins = load_plugins()
 
-		print("== YOUTUBE ==")
-		print("| ytb3")
-		print("| ytb4\n")
+    elif pgr.startswith("pgr update "):
+        name = pgr.split(" ")[2]
+        update_plugin(name)
+        plugins = load_plugins()
 
-		print("== SYSTEM ==")
-		print("| pgr restart")
-		print("| pgr update")
-		print("| pgr exit")
-		print("| uninstall")
-		print("| credits")
-		print("| v")
-		print("| community")
-		print("| repo" + Style.RESET_ALL)
+    elif pgr == "pgr list":
+        list_plugins()
+
+    elif pgr in plugins:
+        plugins[pgr].run()
+        
+    elif pgr == "pgr cli uninstall":
+        print(Fore.RED + "| uninstalling PGR Tools..." + Style.RESET_ALL)
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        os.system(f"rm -rf '{current_dir}'")
+        print(Fore.CYAN + "| PGR Tools removed" + Style.RESET_ALL)
+        exit()
+        
+    elif pgr == "pgr cli restart":
+       print(Fore.CYAN + "| PGR Tools restart. . ." + Style.RESET_ALL)
+       os.execl(sys.executable, sys.executable, *sys.argv)
+    
+    elif pgr == "pgr cli update":
+        print("| updating PGR tools...")
+        os.system("cd ~/pgr-tools && git pull")
+        print(Fore.CYAN + "| PGR Tools restart. . ." + Style.RESET_ALL)
+        os.execl(sys.executable, sys.executable, *sys.argv)
+        
+    elif pgr == "pgr v":
+        print(Fore.CYAN + "| PGRTools	v2.0.1 BETA" + Style.RESET_ALL)
+        
+        
+    elif pgr == "pgr help":
+    	print(Fore.CYAN + "| PROGRAMME :\n")
+    	print("| pgr install {name}")
+    	print("| pgr uninstall {name}")
+    	print("| pgr update {name}")
+    	print("| pgr list")
+    	print("| pgr cli restart")
+    	print("| pgr cli update")
+    	print("| pgr cli uninsinstall")
+    	print("| pgr exit" + Style.RESET_ALL)
+
+    elif pgr == "pgr exit":
+        break
+
+    else:
+        print("| unknown command")
