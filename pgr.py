@@ -92,10 +92,12 @@ for i in range(100):
 		print(Fore.CYAN + "| bye user :)" + Style.RESET_ALL)
 		exit()
 		
-	if pgr == "uninstall":
-		print("| exit PGR tools and copy paste this command")
-		print(Fore.CYAN + " cd ~")
-		print(" rm -rf pgr-tools" + Style.RESET_ALL)
+	if pgr == "pgr uninstall":
+		print(Fore.RED + "| uninstalling PGR Tools..." + Style.RESET_ALL)
+		current_dir = os.path.dirname(os.path.abspath(__file__))
+		os.system(f"rm -rf '{current_dir}'")
+		print(Fore.CYAN + "| PGR Tools removed" + Style.RESET_ALL)
+		exit()
 		
 	if pgr == "v":
 		print(Fore.CYAN + "| PGRTools	v1.0.1" + Style.RESET_ALL)
@@ -133,7 +135,7 @@ for i in range(100):
 
 		print("== SYSTEM ==")
 		print("| pgr update")
-		print("| exit")
+		print("| pgr exit")
 		print("| uninstall")
 		print("| credits")
 		print("| v")
