@@ -71,7 +71,7 @@ for i in range(100):
 	if pgr == "hi":
 		print(Fore.CYAN +"| hello :)" + Style.RESET_ALL)
 		
-	if pgr == "time tool 1":
+	if pgr == "timer":
 		seconds = int(input("| time ?>"))
 		for i in range(seconds, 0, -1):
 			print(i)
@@ -125,7 +125,7 @@ for i in range(100):
 		print("| division\n")
 
 		print(Fore.CYAN + "== TOOLS ==")
-		print("| time tool 1")
+		print("| timer")
 		print("| ascii text")
 		print("| random password\n")
 
