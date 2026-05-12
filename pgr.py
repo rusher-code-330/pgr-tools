@@ -10,10 +10,10 @@ from downloader import mp3_ytb
 import os
 import sys
 
-text = pyfiglet.figlet_format (" WELCOME TO PGR TOOLS  (beta)",  font="standard")
+text = pyfiglet.figlet_format (" WELCOME TO PGR TOOLS  V1.0.0",  font="standard")
 print(Fore.CYAN + text + Style.RESET_ALL)
 
-print ("write " + Fore.GREEN + "help"+	Style.RESET_ALL +" to view all pgr")
+print ("write " + Fore.CYAN + "help"+	Style.RESET_ALL +" to view all pgr")
 print(Fore.RED + "created by rusher" + Style.RESET_ALL)
 
 for i in range(100):
@@ -23,25 +23,25 @@ for i in range(100):
 		number1 = int(input("| first number >"))
 		number2 = int(input("| second number >"))
 		result = number1 + number2
-		print(Fore.GREEN + str(result) + Style.RESET_ALL )
+		print(Fore.CYAN + str(result) + Style.RESET_ALL )
 		
 	if pgr == "subtraction":
 		number1 = int(input("| first number >"))
 		number2 = int(input("| second number >"))
 		result = number1 - number2
-		print(Fore.GREEN + str(result) + Style.RESET_ALL )
+		print(Fore.CYAN + str(result) + Style.RESET_ALL )
 		
 	if pgr == "multiplication":
 		number1 = int(input("| first number >"))
 		number2 = int(input("| second number >"))
 		result = number1 * number2
-		print(Fore.GREEN + str(result) + Style.RESET_ALL )
+		print(Fore.CYAN + str(result) + Style.RESET_ALL )
 		
 	if pgr == "division":
 		number1 = int(input("| first number >"))
 		number2 = int(input("| second number >"))
 		result = number1 / number2
-		print(Fore.GREEN + str(result) + Style.RESET_ALL )
+		print(Fore.CYAN + str(result) + Style.RESET_ALL )
 		
 	if pgr == "random password":
 		letters = "abcdefghijklmnopqrstuvwxyz"
@@ -56,7 +56,7 @@ for i in range(100):
 			password += random.choice(maj_letters)
 			
 		print("| password generated >")
-		print(Fore.GREEN + str(password) + Style.RESET_ALL)
+		print(Fore.CYAN + str(password) + Style.RESET_ALL)
 		
 		
 	if pgr == "ascii text":
@@ -66,17 +66,17 @@ for i in range(100):
 		print(result)
 		
 	if pgr == "hello":
-		print(Fore.GREEN+ "| hi :)" + Style.RESET_ALL)
+		print(Fore.CYAN+ "| hi :)" + Style.RESET_ALL)
 		
 	if pgr == "hi":
-		print(Fore.GREEN +"| hello :)" + Style.RESET_ALL)
+		print(Fore.CYAN +"| hello :)" + Style.RESET_ALL)
 		
 	if pgr == "time tool 1":
 		seconds = int(input("| time ?>"))
 		for i in range(seconds, 0, -1):
 			print(i)
 			time.sleep(1)
-		print("out!!!")
+		print("| out!!!")
 		
 	if pgr == "ytb4":
 		mp4_ytb()
@@ -92,24 +92,43 @@ for i in range(100):
 		print(Fore.CYAN + "| bye user :)" + Style.RESET_ALL)
 		exit()
 		
-	if pgr == "-v":
-		print(Fore.CYAN + "| PGR	V.beta" + Style.RESET_ALL)
+	if pgr == "uninstall":
+		print("| exit PGR tools and copy paste this command")
+		print(Fore.CYAN + " cd ~")
+		print(" rm -rf pgr-tools" + Style.RESET_ALL)
+		
+	if pgr == "v":
+		print(Fore.CYAN + "| PGRTools	v1.0.0" + Style.RESET_ALL)
 		
 	if pgr == "community":
 		print(Fore.CYAN + "| comming soon" + Style.RESET_ALL)
 		
+	if pgr == "repo":
+		print("| open code")
+		print(Fore.CYAN + "https://github.com/rusher-code-330/pgr-tools" + Style.RESET_ALL)
+		
 	if pgr == "help":
-		print("| PROGRAMME :")
-		print(Fore.GREEN + "| addition")
+		print("| PROGRAMME :\n")
+
+		print(Fore.CYAN + "== MATH ==")
+		print("| addition")
 		print("| subtraction")
 		print("| multiplication")
-		print("| division")
+		print("| division\n")
+
+		print(Fore.CYAN + "== TOOLS ==")
 		print("| time tool 1")
 		print("| ascii text")
-		print("| exit")
-		print("| ytb4")
+		print("| random password\n")
+
+		print("== YOUTUBE ==")
 		print("| ytb3")
+		print("| ytb4\n")
+
+		print("== SYSTEM ==")
+		print("| exit")
+		print("| uninstall")
 		print("| credits")
-		print("| -v")
+		print("| v")
 		print("| community")
-		print(Fore.GREEN + "| random password" + Style.RESET_ALL)
+		print("| repo" + Style.RESET_ALL)
