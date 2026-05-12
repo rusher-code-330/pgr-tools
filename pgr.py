@@ -107,6 +107,12 @@ for i in range(100):
 		print("| open code")
 		print(Fore.CYAN + "https://github.com/rusher-code-330/pgr-tools" + Style.RESET_ALL)
 		
+	if pgr == "pgr update":
+		print("| updating PGR tools...")
+		os.system("cd ~/pgr-tools && git pull")
+		print(Fore.CYAN + "| PGR Tools restart. . ." + Style.RESET_ALL)
+		os.execl(sys.executable, sys.executable, *sys.argv)
+		
 	if pgr == "help":
 		print("| PROGRAMME :\n")
 
@@ -126,6 +132,7 @@ for i in range(100):
 		print("| ytb4\n")
 
 		print("== SYSTEM ==")
+		print("| pgr update")
 		print("| exit")
 		print("| uninstall")
 		print("| credits")
