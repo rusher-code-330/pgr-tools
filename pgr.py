@@ -74,7 +74,7 @@ for i in range(100):
 	if pgr == "timer":
 		seconds = int(input("| time ?>"))
 		for i in range(seconds, 0, -1):
-			print(i)
+			print(Fore.CYAN +"| " + str( i ) + Style.RESET_ALL)
 			time.sleep(1)
 		print("| out!!!")
 		
@@ -115,6 +115,10 @@ for i in range(100):
 		print(Fore.CYAN + "| PGR Tools restart. . ." + Style.RESET_ALL)
 		os.execl(sys.executable, sys.executable, *sys.argv)
 		
+	if pgr == "pgr restart":
+		print(Fore.CYAN + "| PGR Tools restart. . ." + Style.RESET_ALL)
+		os.execl(sys.executable, sys.executable, *sys.argv)
+		
 	if pgr == "help":
 		print("| PROGRAMME :\n")
 
@@ -134,6 +138,7 @@ for i in range(100):
 		print("| ytb4\n")
 
 		print("== SYSTEM ==")
+		print("| pgr restart")
 		print("| pgr update")
 		print("| pgr exit")
 		print("| uninstall")
