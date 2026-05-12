@@ -2,7 +2,7 @@
   <img src="https://api.websim.com/blobs/019e188f-2e56-75ee-ae6d-286fa8372ba0.png" width="800">
 </p>
 
-![Version](https://img.shields.io/badge/version-beta-yellow?style=for-the-badge&logo=tag)
+![Version](https://img.shields.io/badge/version-1.0.1-yellow?style=for-the-badge&logo=tag)
 [![Python](https://img.shields.io/badge/python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Repo](https://img.shields.io/badge/repo-PGRTOOLS-181717?style=for-the-badge&logo=github)](https://github.com/rusher-code-330/pgr-tools)
 [![Developer](https://img.shields.io/badge/developer-Rusher-ff4d4d?style=for-the-badge&logo=github)](https://github.com/rusher-code-330)
@@ -10,7 +10,7 @@
 [![yt-dlp](https://img.shields.io/badge/yt--dlp-latest-ff0000?style=for-the-badge&logo=youtube&logoColor=white)](https://github.com/yt-dlp/yt-dlp)
 
 
-# PGR Tools v1.0.0
+# PGR Tools v1.0.1
 
 PGR Tools is a simple toolbox that includes calculators, text tools, password generator, timers, and YouTube download features (MP3/MP4).
 
@@ -28,6 +28,10 @@ PGR Tools is a simple toolbox that includes calculators, text tools, password ge
 # launch PGR Tools
 ```bash
 pgr
+```
+## for update
+```bash
+pgr update
 ```
 ---
 
