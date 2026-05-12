@@ -83,8 +83,13 @@ def install_plugin(name):
     r = requests.get(url)
 
     if r.status_code == 200:
+
+        code = r.text
+
+        install_requirements(code)
+
         with open(f"{PLUGIN_DIR}/{name}.py", "w") as f:
-            f.write(r.text)
+            f.write(code)
 
         installed = get_installed()
 
@@ -93,9 +98,9 @@ def install_plugin(name):
             save_installed(installed)
 
         print(f"| {name} installed")
+
     else:
         print("| plugin not found")
-
 
 def uninstall_plugin(name):
     path = f"{PLUGIN_DIR}/{name}.py"
