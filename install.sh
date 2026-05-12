@@ -5,6 +5,7 @@ echo "Installing PGR Tools..."
 pkg install ffmpeg -y
 
 pkg install python -y
+pkg install nodejs -y
 
 pip install yt-dlp colorama pyfiglet
 
