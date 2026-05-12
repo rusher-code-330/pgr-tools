@@ -15,7 +15,7 @@ pip3 install yt-dlp colorama pyfiglet
 
 
 chmod 755 pgr-linux
-sudo mv pgr-linux /usr/local/bin/
+sudo mv pgr-linux /usr/local/bin/pgr
 chmod 755 /usr/local/bin/pgr
 
 echo "Installed! Type: pgr"
