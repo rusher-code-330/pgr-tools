@@ -10,7 +10,7 @@ from downloader import mp3_ytb
 import os
 import sys
 
-text = pyfiglet.figlet_format (" WELCOME TO PGR TOOLS  V1.0.0",  font="standard")
+text = pyfiglet.figlet_format (" WELCOME TO PGR TOOLS  V1.0.1",  font="standard")
 print(Fore.CYAN + text + Style.RESET_ALL)
 
 print ("write " + Fore.CYAN + "help"+	Style.RESET_ALL +" to view all pgr")
