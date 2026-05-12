@@ -6,7 +6,7 @@
 [![python](https://img.shields.io/badge/python-3-white?logo=python)](https://www.python.org/)
 [![Repo](https://img.shields.io/badge/Repo-PGRTOOLS-white?logo=github)](https://github.com/rusher-code-330/pgr-tools)
 [![User](https://img.shields.io/badge/Developper-Rusher-white?logo=github)](https://github.com/rusher-code-330)
-[![User](https://img.shields.io/badge/Developper-Rusher-white?logo=github)](https://github.com/rusher-code-330)
+[![FFmpeg](https://img.shields.io/badge/FFmpeg-8.1.1-white?logo=ffmpeg)](https://ffmpeg.org/)
 
 
 # PGR Tools V.beta
