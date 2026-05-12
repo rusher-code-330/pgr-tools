@@ -13,12 +13,10 @@ PGR Tools is a simple Python CLI and interactive toolbox that includes calculato
 
 - Calculator (addition, subtraction, multiplication, division)
 - Random password generator
-- ASCII text generator (pyfiglet)
+- ASCII text generator 
 - Countdown timer
-- YouTube MP3 downloader (yt-dlp)
-- YouTube MP4 downloader (yt-dlp)
-- Interactive CLI system (pgr commands)
-
+- YouTube MP3 downloader 
+- YouTube MP4 downloader 
 ---
 
 # installation (Termux / Linux)
