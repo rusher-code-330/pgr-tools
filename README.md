@@ -18,6 +18,11 @@ PGR Tools is a simple Python CLI and interactive toolbox that includes calculato
 - YouTube MP3 downloader 
 - YouTube MP4 downloader 
 ---
+# launch PGR Tools
+```bash
+pgr
+```
+---
 
 # installation (Termux / Linux)
 
