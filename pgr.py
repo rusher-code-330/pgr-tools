@@ -98,7 +98,7 @@ for i in range(100):
 		print(" rm -rf pgr-tools" + Style.RESET_ALL)
 		
 	if pgr == "v":
-		print(Fore.CYAN + "| PGRTools	v1.0.0" + Style.RESET_ALL)
+		print(Fore.CYAN + "| PGRTools	v1.0.1" + Style.RESET_ALL)
 		
 	if pgr == "community":
 		print(Fore.CYAN + "| comming soon" + Style.RESET_ALL)
