@@ -7,10 +7,11 @@ import pyfiglet
 import downloader
 from downloader import mp4_ytb
 from downloader import mp3_ytb
-
+import os
+import sys
 
 text = pyfiglet.figlet_format (" WELCOME TO PGR TOOLS  (beta)",  font="standard")
-print(text)
+print(Fore.CYAN + text + Style.RESET_ALL)
 
 print ("write " + Fore.GREEN + "help"+	Style.RESET_ALL +" to view all pgr")
 print(Fore.RED + "created by rusher" + Style.RESET_ALL)
