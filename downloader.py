@@ -7,10 +7,11 @@ def mp4_ytb():
     url = input(Fore.RED + "| YouTube URL (converter mp4): ")
 
     options = {
-        "format": "best[ext=mp4][vcodec=h264]/best",
+        "format": "bestvideo[height<=1080][vcodec=vp9]+bestaudio[ext=m4a]/bestvideo[height<=1080]+bestaudio/best",
         "merge_output_format": "mp4",
         "ffmpeg_location": "/data/data/com.termux/files/usr/bin",
-        "outtmpl": "/storage/emulated/0/Download/%(title)s.%(ext)s"
+        "outtmpl": "/storage/emulated/0/Download/%(title)s.%(ext)s",
+        "postprocessor_args": ["-threads", "2"],
     }
 
     with yt_dlp.YoutubeDL(options) as ydl:
