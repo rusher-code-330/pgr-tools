@@ -7,7 +7,7 @@ pkg install ffmpeg -y
 pkg install python -y
 pkg install nodejs -y
 
-pip install yt-dlp colorama pyfiglet
+pip install yt-dlp colorama pyfiglet requests importlib
 
 chmod 755 pgr
 mv pgr $PREFIX/bin/
