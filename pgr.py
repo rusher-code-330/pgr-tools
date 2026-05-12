@@ -19,13 +19,16 @@ if not os.path.exists(INSTALLED_FILE):
     with open(INSTALLED_FILE, "w") as f:
         json.dump([], f)
 
+
 def get_installed():
     with open(INSTALLED_FILE, "r") as f:
         return json.load(f)
 
+
 def save_installed(data):
     with open(INSTALLED_FILE, "w") as f:
         json.dump(data, f)
+
 
 def load_plugins():
     plugins = {}
@@ -41,6 +44,7 @@ def load_plugins():
                 spec = importlib.util.spec_from_file_location(name, path)
                 module = importlib.util.module_from_spec(spec)
                 spec.loader.exec_module(module)
+
                 plugins[name] = module
 
             except Exception as e:
@@ -48,6 +52,7 @@ def load_plugins():
                 print(e)
 
     return plugins
+
 
 def install_requirements(code):
     try:
@@ -73,6 +78,7 @@ def install_requirements(code):
     except Exception as e:
         print("| dependency error:", e)
 
+
 def install_plugin(name):
     url = f"{BASE_URL}/{name}.py"
     r = requests.get(url)
@@ -97,6 +103,7 @@ def install_plugin(name):
     else:
         print("| plugin not found")
 
+
 def uninstall_plugin(name):
     path = f"{PLUGIN_DIR}/{name}.py"
 
@@ -114,9 +121,11 @@ def uninstall_plugin(name):
     else:
         print("| plugin not installed")
 
+
 def update_plugin(name):
     uninstall_plugin(name)
     install_plugin(name)
+
 
 def list_plugins():
     installed = get_installed()
@@ -125,6 +134,7 @@ def list_plugins():
     for p in installed:
         print("-", p)
     print("_________________________")
+
 
 plugins = load_plugins()
 
