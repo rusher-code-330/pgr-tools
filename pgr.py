@@ -2,9 +2,9 @@ import os
 import importlib.util
 import requests
 import json
-import sys
 from colorama import init, Fore, Style
 import pyfiglet
+import sys
 
 init()
 
@@ -18,16 +18,6 @@ if not os.path.exists(PLUGIN_DIR):
 if not os.path.exists(INSTALLED_FILE):
     with open(INSTALLED_FILE, "w") as f:
         json.dump([], f)
-
-
-def get_installed():
-    with open(INSTALLED_FILE, "r") as f:
-        return json.load(f)
-
-
-def save_installed(data):
-    with open(INSTALLED_FILE, "w") as f:
-        json.dump(data, f)
 
 
 def load_plugins():
@@ -54,29 +44,14 @@ def load_plugins():
     return plugins
 
 
-def install_requirements(code):
-    try:
-        import re
+def save_installed(data):
+    with open(INSTALLED_FILE, "w") as f:
+        json.dump(data, f)
 
-        match = re.search(r"REQUIRES\s*=\s*\[(.*?)\]", code)
 
-        if not match:
-            return
-
-        raw = match.group(1)
-
-        packages = [
-            p.strip().replace('"', '').replace("'", "")
-            for p in raw.split(",")
-        ]
-
-        for pkg in packages:
-            if pkg:
-                print(f"| installing dependency: {pkg}")
-                os.system(f"{sys.executable} -m pip install {pkg}")
-
-    except Exception as e:
-        print("| dependency error:", e)
+def get_installed():
+    with open(INSTALLED_FILE, "r") as f:
+        return json.load(f)
 
 
 def install_plugin(name):
@@ -84,13 +59,8 @@ def install_plugin(name):
     r = requests.get(url)
 
     if r.status_code == 200:
-
-        code = r.text
-
-        install_requirements(code)
-
         with open(f"{PLUGIN_DIR}/{name}.py", "w") as f:
-            f.write(code)
+            f.write(r.text)
 
         installed = get_installed()
 
@@ -99,7 +69,6 @@ def install_plugin(name):
             save_installed(installed)
 
         print(f"| {name} installed")
-
     else:
         print("| plugin not found")
 
@@ -109,15 +78,7 @@ def uninstall_plugin(name):
 
     if os.path.exists(path):
         os.remove(path)
-
-        installed = get_installed()
-
-        if name in installed:
-            installed.remove(name)
-            save_installed(installed)
-
         print(f"| {name} removed")
-
     else:
         print("| plugin not installed")
 
@@ -138,10 +99,10 @@ def list_plugins():
 
 plugins = load_plugins()
 
-text = pyfiglet.figlet_format("PGR TOOLS v2.0.1", font="standard")
+text = pyfiglet.figlet_format(" WELCOME TO PGR TOOLS  V2.0.1 BETA", font="standard")
 print(Fore.CYAN + text + Style.RESET_ALL)
 
-print("write " + Fore.CYAN + "pgr help" + Style.RESET_ALL + " to view commands")
+print("write " + Fore.CYAN + "pgr help" + Style.RESET_ALL + " to view all pgr")
 print(Fore.RED + "created by rusher" + Style.RESET_ALL)
 
 while True:
@@ -172,24 +133,35 @@ while True:
         except Exception as e:
             print("| plugin error:", e)
 
-    elif pgr == "pgr cli restart":
-        print("| restarting...")
-        os.execl(sys.executable, sys.executable, *sys.argv)
-
     elif pgr == "pgr cli uninstall":
-        print("| removing PGR Tools...")
+        print(Fore.RED + "| uninstalling PGR Tools..." + Style.RESET_ALL)
         current_dir = os.path.dirname(os.path.abspath(__file__))
         os.system(f"rm -rf '{current_dir}'")
+        print(Fore.CYAN + "| PGR Tools removed" + Style.RESET_ALL)
         exit()
 
+    elif pgr == "pgr cli restart":
+        print(Fore.CYAN + "| PGR Tools restart. . ." + Style.RESET_ALL)
+        os.execl(sys.executable, sys.executable, *sys.argv)
+
+    elif pgr == "pgr cli update":
+        print("| updating PGR tools...")
+        os.system("cd ~/pgr-tools && git pull")
+        print(Fore.CYAN + "| PGR Tools restart. . ." + Style.RESET_ALL)
+        os.execl(sys.executable, sys.executable, *sys.argv)
+
+    elif pgr == "pgr v":
+        print(Fore.CYAN + "| PGRTools v2.0.1 BETA" + Style.RESET_ALL)
+
     elif pgr == "pgr help":
-        print(Fore.CYAN + "| COMMANDS:\n")
+        print(Fore.CYAN + "| PROGRAMME :\n")
         print("| pgr install {name}")
         print("| pgr uninstall {name}")
         print("| pgr update {name}")
         print("| pgr list")
         print("| pgr cli restart")
-        print("| pgr cli uninstall")
+        print("| pgr cli update")
+        print("| pgr cli uninsinstall")
         print("| pgr exit" + Style.RESET_ALL)
 
     elif pgr == "pgr exit":
