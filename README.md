@@ -2,9 +2,10 @@
   <img src="https://api.websim.com/blobs/019e188f-2e56-75ee-ae6d-286fa8372ba0.png" width="800">
 </p>
 
-![Version](https://img.shields.io/badge/version-1.0-red)
-![License](https://img.shields.io/badge/license-PGRTools-blue)
-![python](https://img.shields.io/badge/python-3-blue)
+![Version](https://img.shields.io/badge/version-beta-white)
+![python](https://img.shields.io/badge/python-3-white?logo=python)
+[![Repo](https://img.shields.io/badge/Repo-PGRTOOLS-white?logo=github)](https://github.com/rusher-code-330/pgr-tools)
+[![User](https://img.shields.io/badge/Developper-Rusher-white?logo=github)](https://github.com/rusher-code-330)
 
 
 # PGR Tools V.beta
