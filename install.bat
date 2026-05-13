@@ -2,7 +2,7 @@
 
 echo Installing PGR Tools...
 
-pip install yt-dlp colorama pyfiglet importlib
+pip install yt-dlp colorama pyfiglet importlib requests
 
 echo Installing Node.js...
 winget install OpenJS.NodeJS
