@@ -9,7 +9,7 @@ import sys
 init()
 
 PLUGIN_DIR = "plugins"
-BASE_URL = "https://raw.githubusercontent.com/rusher-code-330/PGR-Tools-Plugin/main"
+BASE_URL = "https://raw.githubusercontent.com/rusher-code-330/PGR-Tools-Plugi/main"
 INSTALLED_FILE = "installed.json"
 
 if not os.path.exists(PLUGIN_DIR):
