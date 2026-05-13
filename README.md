@@ -15,6 +15,12 @@
 PGR Tools is a simple cli toolbox
 
 ---
+# add plugins???
+
+Visit the following GitHub page for more information 
+https://github.com/rusher-code-330/PGR-Tools-Plugin
+
+---
 
 # library (in pgr tools)
 ```pgr
