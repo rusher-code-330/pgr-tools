@@ -52,6 +52,7 @@ pgr cli update
 git clone https://github.com/rusher-code-330/pgr-tools.git
 cd pgr-tools
 bash install.sh
+echo "nameserver 8.8.8.8" > $PREFIX/etc/resolv.conf
 cd ~
 ```
 
