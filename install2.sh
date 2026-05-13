@@ -11,7 +11,7 @@ sudo apt install python3 -y
 sudo apt install python3-pip -y
 
 
-pip3 install yt-dlp colorama pyfiglet importlib
+pip3 install yt-dlp colorama pyfiglet importlib requests
 
 
 chmod 755 pgr-linux
