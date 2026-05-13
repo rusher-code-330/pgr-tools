@@ -9,9 +9,10 @@ import shutil
 
 init()
 
-PLUGIN_DIR = "plugins"
+PGR_DIR = os.path.dirname(os.path.abspath(__file__))
+PLUGIN_DIR = os.path.join(PGR_DIR, "plugins")
 BASE_URL = "https://raw.githubusercontent.com/rusher-code-330/PGR-Tools-Plugin/main"
-INSTALLED_FILE = "installed.json"
+INSTALLED_FILE = os.path.join(PGR_DIR, "installed.json")
 
 if not os.path.exists(PLUGIN_DIR):
     os.makedirs(PLUGIN_DIR)
@@ -22,15 +23,11 @@ if not os.path.exists(INSTALLED_FILE):
 
 def install_requirements(data):
     try:
-
         if "requires" not in data:
             return
-
         for pkg in data["requires"]:
-
             print(f"| installing dependency: {pkg}")
             os.system(f"{sys.executable} -m pip install {pkg}")
-
     except Exception as e:
         print("| dependency error:", e)
 
@@ -39,22 +36,18 @@ def load_plugins():
     plugins = {}
 
     for folder in os.listdir(PLUGIN_DIR):
-
         plugin_path = os.path.join(PLUGIN_DIR, folder)
 
         if os.path.isdir(plugin_path):
-
             config_path = os.path.join(plugin_path, "plugin.json")
             main_path = os.path.join(plugin_path, "main.py")
 
             if not os.path.exists(config_path):
                 continue
-
             if not os.path.exists(main_path):
                 continue
 
             try:
-
                 with open(config_path, "r") as f:
                     data = json.load(f)
 
@@ -83,8 +76,19 @@ def get_installed():
         return json.load(f)
 
 
-def install_plugin(name):
+def sync_installed():
+    """Sync installed.json with folders actually present in plugins/"""
+    actual = [
+        folder for folder in os.listdir(PLUGIN_DIR)
+        if os.path.isdir(os.path.join(PLUGIN_DIR, folder))
+        and os.path.exists(os.path.join(PLUGIN_DIR, folder, "plugin.json"))
+        and os.path.exists(os.path.join(PLUGIN_DIR, folder, "main.py"))
+    ]
+    save_installed(actual)
+    return actual
 
+
+def install_plugin(name):
     plugin_folder = os.path.join(PLUGIN_DIR, name)
 
     if os.path.exists(plugin_folder):
@@ -101,54 +105,36 @@ def install_plugin(name):
         return
 
     files = r.json()
-
     plugin_json_data = None
 
     for file in files:
-
         if file["type"] == "file":
-
             file_name = file["name"]
             download_url = file["download_url"]
 
             file_request = requests.get(download_url)
 
             if file_request.status_code == 200:
-
                 with open(os.path.join(plugin_folder, file_name), "wb") as f:
                     f.write(file_request.content)
 
                 if file_name == "plugin.json":
-
                     plugin_json_data = json.loads(file_request.text)
 
     if plugin_json_data:
         install_requirements(plugin_json_data)
 
-    installed = get_installed()
-
-    if name not in installed:
-        installed.append(name)
-        save_installed(installed)
-
+    sync_installed()
     print(f"| {name} installed")
-    
-def uninstall_plugin(name):
 
+
+def uninstall_plugin(name):
     plugin_folder = os.path.join(PLUGIN_DIR, name)
 
     if os.path.exists(plugin_folder):
-
         shutil.rmtree(plugin_folder)
-
-        installed = get_installed()
-
-        if name in installed:
-            installed.remove(name)
-            save_installed(installed)
-
+        sync_installed()
         print(f"| {name} removed")
-
     else:
         print("| plugin not installed")
 
@@ -159,7 +145,7 @@ def update_plugin(name):
 
 
 def list_plugins():
-    installed = get_installed()
+    installed = sync_installed()
 
     print("\n___ INSTALLED PLUGINS ___")
     for p in installed:
@@ -169,7 +155,7 @@ def list_plugins():
 
 plugins = load_plugins()
 
-text = pyfiglet.figlet_format(" WELCOME TO PGR TOOLS  V2.1.1 BETA", font="standard")
+text = pyfiglet.figlet_format(" WELCOME TO PGR TOOLS  V2.1.2 BETA", font="standard")
 print(Fore.CYAN + text + Style.RESET_ALL)
 
 print("write " + Fore.CYAN + "pgr help" + Style.RESET_ALL + " to view all pgr")
@@ -221,7 +207,7 @@ while True:
         os.execl(sys.executable, sys.executable, *sys.argv)
 
     elif pgr == "pgr v":
-        print(Fore.CYAN + "| PGRTools v2.0.1 BETA" + Style.RESET_ALL)
+        print(Fore.CYAN + "| PGRTools v2.1.2 BETA" + Style.RESET_ALL)
 
     elif pgr == "pgr help":
         print(Fore.CYAN + "| PROGRAMME :\n")
@@ -231,7 +217,7 @@ while True:
         print("| pgr list")
         print("| pgr cli restart")
         print("| pgr cli update")
-        print("| pgr cli uninsinstall")
+        print("| pgr cli uninstall")
         print("| pgr exit" + Style.RESET_ALL)
 
     elif pgr == "pgr exit":
