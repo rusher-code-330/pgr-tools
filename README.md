@@ -46,7 +46,7 @@ pgr cli update
 ```
 ---
 
-# installation (Termux / Linux)
+# installation Termux
 
 ```bash
 git clone https://github.com/rusher-code-330/pgr-tools.git
