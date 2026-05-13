@@ -5,11 +5,12 @@ import json
 from colorama import init, Fore, Style
 import pyfiglet
 import sys
+import shutil
 
 init()
 
 PLUGIN_DIR = "plugins"
-BASE_URL = "https://raw.githubusercontent.com/rusher-code-330/PGR-Tools-Plugi/main"
+BASE_URL = "https://raw.githubusercontent.com/rusher-code-330/PGR-Tools-Plugin/main"
 INSTALLED_FILE = "installed.json"
 
 if not os.path.exists(PLUGIN_DIR):
@@ -19,26 +20,16 @@ if not os.path.exists(INSTALLED_FILE):
     with open(INSTALLED_FILE, "w") as f:
         json.dump([], f)
 
-def install_requirements(code):
-    import re
-
+def install_requirements(data):
     try:
-        match = re.search(r"REQUIRES\s*=\s*\[(.*?)\]", code)
 
-        if not match:
+        if "requires" not in data:
             return
 
-        raw = match.group(1)
+        for pkg in data["requires"]:
 
-        packages = [
-            p.strip().replace('"', '').replace("'", "")
-            for p in raw.split(",")
-        ]
-
-        for pkg in packages:
-            if pkg:
-                print(f"| installing dependency: {pkg}")
-                os.system(f"{sys.executable} -m pip install {pkg}")
+            print(f"| installing dependency: {pkg}")
+            os.system(f"{sys.executable} -m pip install {pkg}")
 
     except Exception as e:
         print("| dependency error:", e)
@@ -47,22 +38,36 @@ def install_requirements(code):
 def load_plugins():
     plugins = {}
 
-    for file in os.listdir(PLUGIN_DIR):
+    for folder in os.listdir(PLUGIN_DIR):
 
-        if file.endswith(".py"):
+        plugin_path = os.path.join(PLUGIN_DIR, folder)
 
-            name = file[:-3]
-            path = os.path.join(PLUGIN_DIR, file)
+        if os.path.isdir(plugin_path):
+
+            config_path = os.path.join(plugin_path, "plugin.json")
+            main_path = os.path.join(plugin_path, "main.py")
+
+            if not os.path.exists(config_path):
+                continue
+
+            if not os.path.exists(main_path):
+                continue
 
             try:
-                spec = importlib.util.spec_from_file_location(name, path)
+
+                with open(config_path, "r") as f:
+                    data = json.load(f)
+
+                plugin_name = data["name"]
+
+                spec = importlib.util.spec_from_file_location(plugin_name, main_path)
                 module = importlib.util.module_from_spec(spec)
                 spec.loader.exec_module(module)
 
-                plugins[name] = module
+                plugins[plugin_name] = module
 
             except Exception as e:
-                print(f"| failed loading plugin: {name}")
+                print(f"| failed loading plugin: {folder}")
                 print(e)
 
     return plugins
@@ -79,35 +84,71 @@ def get_installed():
 
 
 def install_plugin(name):
-    url = f"{BASE_URL}/{name}.py"
-    r = requests.get(url)
 
-    if r.status_code == 200:
+    plugin_folder = os.path.join(PLUGIN_DIR, name)
 
-        code = r.text
+    if os.path.exists(plugin_folder):
+        shutil.rmtree(plugin_folder)
 
-        install_requirements(code)
+    os.makedirs(plugin_folder)
 
-        with open(f"{PLUGIN_DIR}/{name}.py", "w") as f:
-            f.write(code)
+    api_url = f"https://api.github.com/repos/rusher-code-330/PGR-Tools-Plugin/contents/{name}"
+
+    r = requests.get(api_url)
+
+    if r.status_code != 200:
+        print("| plugin not found")
+        return
+
+    files = r.json()
+
+    plugin_json_data = None
+
+    for file in files:
+
+        if file["type"] == "file":
+
+            file_name = file["name"]
+            download_url = file["download_url"]
+
+            file_request = requests.get(download_url)
+
+            if file_request.status_code == 200:
+
+                with open(os.path.join(plugin_folder, file_name), "wb") as f:
+                    f.write(file_request.content)
+
+                if file_name == "plugin.json":
+
+                    plugin_json_data = json.loads(file_request.text)
+
+    if plugin_json_data:
+        install_requirements(plugin_json_data)
+
+    installed = get_installed()
+
+    if name not in installed:
+        installed.append(name)
+        save_installed(installed)
+
+    print(f"| {name} installed")
+    
+def uninstall_plugin(name):
+
+    plugin_folder = os.path.join(PLUGIN_DIR, name)
+
+    if os.path.exists(plugin_folder):
+
+        shutil.rmtree(plugin_folder)
 
         installed = get_installed()
 
-        if name not in installed:
-            installed.append(name)
+        if name in installed:
+            installed.remove(name)
             save_installed(installed)
 
-        print(f"| {name} installed")
-
-    else:
-        print("| plugin not found")
-
-def uninstall_plugin(name):
-    path = f"{PLUGIN_DIR}/{name}.py"
-
-    if os.path.exists(path):
-        os.remove(path)
         print(f"| {name} removed")
+
     else:
         print("| plugin not installed")
 
@@ -128,7 +169,7 @@ def list_plugins():
 
 plugins = load_plugins()
 
-text = pyfiglet.figlet_format(" WELCOME TO PGR TOOLS  V2.0.1 BETA", font="standard")
+text = pyfiglet.figlet_format(" WELCOME TO PGR TOOLS  V2.1.1 BETA", font="standard")
 print(Fore.CYAN + text + Style.RESET_ALL)
 
 print("write " + Fore.CYAN + "pgr help" + Style.RESET_ALL + " to view all pgr")
