@@ -126,6 +126,14 @@ def install_plugin(name):
 
     sync_installed()
     print(f"| {name} installed")
+    if plugin_json_data and "description" in plugin_json_data:
+    	print(f"| {plugin_json_data['description']}")
+    	
+    if plugin_json_data and "developer" in plugin_json_data:
+    	print(f"| {plugin_json_data['developer']}")
+    	
+    if plugin_json_data and "version" in plugin_json_data:
+    	print(f"| {plugin_json_data['version']}")
 
 
 def uninstall_plugin(name):
@@ -142,6 +150,49 @@ def uninstall_plugin(name):
 def update_plugin(name):
     uninstall_plugin(name)
     install_plugin(name)
+    
+def info_plugin(name):
+    api_url = f"https://api.github.com/repos/rusher-code-330/PGR-Tools-Plugin/contents/{name}"
+    
+    r = requests.get(api_url)
+    
+    if r.status_code != 200:
+    	print(Fore.RED + "| error" + Style.RESET_ALL)
+    	return
+    	
+    files = r.json()
+    
+    for file in files :
+    	if file ["name"] == "plugin.json" :
+    		file_request = requests.get(file["download_url"])
+    		plugin_json_data = json.loads(file_request.text)
+    		
+    		print(Fore.CYAN + f"| name       : {plugin_json_data.get('name', 'N/A')}")
+    		print(f"| developer       : {plugin_json_data.get('developer', 'N/A')}")
+    		print(f"| version       : {plugin_json_data.get('version', 'N/A')}")
+    		print(f"| description       : {plugin_json_data.get('description', 'N/A')}" + Style.RESET_ALL)
+    		return
+    print(Fore.RED + "| no plugin.json found" + Style.RESET_ALL)
+    	
+    	
+    
+def list_index():
+	api_url = "https://api.github.com/repos/rusher-code-330/PGR-Tools-Plugin/contents"
+	
+	r = requests.get(api_url)
+	
+	if r.status_code != 200:
+		print("| github error")
+		return
+		
+	data = r.json()
+	
+	print("\n___AVAILABLE PLUGIN___")
+	for item in data:
+		if item ["type"] == "dir" :
+			print("-", item["name"])
+			
+	print("________________________") 
 
 
 def list_plugins():
@@ -155,7 +206,7 @@ def list_plugins():
 
 plugins = load_plugins()
 
-text = pyfiglet.figlet_format(" WELCOME TO PGR TOOLS  V2.1.2 BETA", font="standard")
+text = pyfiglet.figlet_format(" WELCOME TO PGR TOOLS  V2.1.3 BETA", font="standard")
 print(Fore.CYAN + text + Style.RESET_ALL)
 
 print("write " + Fore.CYAN + "pgr help" + Style.RESET_ALL + " to view all pgr")
@@ -188,6 +239,10 @@ while True:
             plugins[pgr].run()
         except Exception as e:
             print("| plugin error:", e)
+            
+    elif pgr.startswith("pgr info "):
+    	name = pgr.split(" ")[2]
+    	info_plugin(name)
 
     elif pgr == "pgr cli uninstall":
         print(Fore.RED + "| uninstalling PGR Tools..." + Style.RESET_ALL)
@@ -208,6 +263,9 @@ while True:
 
     elif pgr == "pgr v":
         print(Fore.CYAN + "| PGRTools v2.1.2 BETA" + Style.RESET_ALL)
+        
+    elif pgr == "pgr index":
+    	list_index()
 
     elif pgr == "pgr help":
         print(Fore.CYAN + "| PROGRAMME :\n")
@@ -218,6 +276,7 @@ while True:
         print("| pgr cli restart")
         print("| pgr cli update")
         print("| pgr cli uninstall")
+        print("| pgr index")
         print("| pgr exit" + Style.RESET_ALL)
 
     elif pgr == "pgr exit":
