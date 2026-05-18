@@ -125,7 +125,7 @@ def install_plugin(name):
         install_requirements(plugin_json_data)
 
     sync_installed()
-    print(f"| {name} installed")
+    print(Fore.CYAN + f"| {name} installed")
     if plugin_json_data and "description" in plugin_json_data:
     	print(f"| {plugin_json_data['description']}")
     	
@@ -133,7 +133,7 @@ def install_plugin(name):
     	print(f"| {plugin_json_data['developer']}")
     	
     if plugin_json_data and "version" in plugin_json_data:
-    	print(f"| {plugin_json_data['version']}")
+    	print(f"| {plugin_json_data['version']}" + Style.RESET_ALL)
 
 
 def uninstall_plugin(name):
@@ -187,21 +187,21 @@ def list_index():
 		
 	data = r.json()
 	
-	print("\n___AVAILABLE PLUGIN___")
+	print(Fore.CYAN +"\n___AVAILABLE PLUGIN___")
 	for item in data:
 		if item ["type"] == "dir" :
 			print("-", item["name"])
 			
-	print("________________________") 
+	print("________________________"+ Style.RESET_ALL) 
 
 
 def list_plugins():
     installed = sync_installed()
 
-    print("\n___ INSTALLED PLUGINS ___")
+    print(Fore.CYAN+"\n___ INSTALLED PLUGINS ___")
     for p in installed:
         print("-", p)
-    print("_________________________")
+    print("_________________________"+ Style.RESET_ALL)
 
 
 plugins = load_plugins()
