@@ -277,6 +277,7 @@ while True:
         print("| pgr cli update")
         print("| pgr cli uninstall")
         print("| pgr index")
+        print("| pgr info")
         print("| pgr exit" + Style.RESET_ALL)
 
     elif pgr == "pgr exit":
