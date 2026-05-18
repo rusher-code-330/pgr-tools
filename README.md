@@ -10,7 +10,7 @@
 [![yt-dlp](https://img.shields.io/badge/yt--dlp-latest-ff0000?style=for-the-badge&logo=youtube&logoColor=white)](https://github.com/yt-dlp/yt-dlp)
 
 
-# PGR Tools v2.1.2 BETA
+# PGR Tools v2.1.3 BETA
 
 PGR Tools is a simple cli toolbox
 
